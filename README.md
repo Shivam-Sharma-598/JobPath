@@ -1,4 +1,6 @@
-# JobPath – Job Application Tracker
+# 🛄 JobPath – Job Application Tracker
+
+🔗 Live Site: https://job-path-eight.vercel.app/
 
 A comprehensive job application tracking system built with vanilla JavaScript and Supabase.
 
