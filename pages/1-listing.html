@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+            --success-green: #4CAF50;
+            --warning-yellow: #FFA726;
+            --info-blue: #42A5F5;
+            --danger-red: #EF5350;
+            --archived-gray: #9E9E9E;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, var(--sky-light) 100%);
+            min-height: 100vh;
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+
+        /* Hero Banner */
+        .hero-banner {
+            position: relative;
+            padding: 8rem 5% 4rem;
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C5E7FF 100%);
+            overflow: hidden;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 30px) scale(1.1);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: #5A6F7F;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decorative landscape */
+        .landscape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background:
+                linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.6) 100%);
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.7;
+            animation: floatCloud 30s infinite ease-in-out;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 20px;
+            right: 20%;
+            animation-delay: 0s;
+        }
+
+        .cloud1::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1::after {
+            width: 60px;
+            height: 40px;
+            top: -15px;
+            right: 10px;
+        }
+
+        .cloud2 {
+            width: 120px;
+            height: 50px;
+            top: 40px;
+            right: 60%;
+            animation-delay: 10s;
+        }
+
+        .cloud2::before {
+            width: 60px;
+            height: 60px;
+            top: -30px;
+            left: 15px;
+        }
+
+        .cloud2::after {
+            width: 70px;
+            height: 50px;
+            top: -20px;
+            right: 15px;
+        }
+
+        @keyframes floatCloud {
+
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-100px) translateY(-10px);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            padding: 3rem 5% 5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            z-index: 10;
+        }
+
+        /* Search and Filters */
+        .controls-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #E0E8F0;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 25px rgba(11, 79, 138, 0.15);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        .filter-select {
+            padding: 1rem 2rem;
+            border: 2px solid #E0E8F0;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 600;
+            color: var(--deep-navy);
+            background: white;
+            transition: all 0.3s;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%230A2540" stroke-width="2" stroke-linecap="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            padding-right: 3rem;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 25px rgba(11, 79, 138, 0.15);
+        }
+
+        /* Job Cards */
+        .jobs-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .job-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .job-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .job-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .job-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .job-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .job-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 184, 0, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .job-card:hover::before {
+            left: 100%;
+        }
+
+        .job-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(11, 79, 138, 0.12);
+            border-color: var(--accent-gold);
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.4s ease;
+        }
+
+        .job-card:hover .company-logo {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .job-details {
+            flex: 1;
+        }
+
+        .job-header {
+            margin-bottom: 0.8rem;
+        }
+
+        .job-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .company-name {
+            font-size: 1.1rem;
+            color: #5A6F7F;
+            font-weight: 600;
+        }
+
+        .job-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #7A8F9F;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tag-company {
+            background: #E3F2FD;
+            color: #1976D2;
+            border: 1px solid #90CAF9;
+        }
+
+        .tag-source {
+            background: #F3E5F5;
+            color: #7B1FA2;
+            border: 1px solid #CE93D8;
+        }
+
+        .tag-priority {
+            background: #FFF3E0;
+            color: #E65100;
+            border: 1px solid #FFB74D;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .tag-priority-low {
+            background: #F5F5F5;
+            color: #757575;
+            border: 1px solid #BDBDBD;
+        }
+
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .job-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 1rem;
+        }
+
+        .status-badge {
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: capitalize;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .status-interview {
+            background: linear-gradient(135deg, var(--success-green) 0%, #388E3C 100%);
+            color: white;
+        }
+
+        .status-applied {
+            background: linear-gradient(135deg, var(--warning-yellow) 0%, #F57C00 100%);
+            color: white;
+        }
+
+        .status-review {
+            background: linear-gradient(135deg, var(--info-blue) 0%, #1976D2 100%);
+            color: white;
+        }
+
+        .status-rejected {
+            background: linear-gradient(135deg, var(--danger-red) 0%, #C62828 100%);
+            color: white;
+        }
+
+        .status-archived {
+            background: linear-gradient(135deg, var(--archived-gray) 0%, #616161 100%);
+            color: white;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .icon-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid #E0E8F0;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            color: var(--primary-blue);
+        }
+
+        .icon-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(11, 79, 138, 0.3);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .page-btn {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #E0E8F0;
+            background: white;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(11, 79, 138, 0.2);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .job-card {
+                grid-template-columns: auto 1fr;
+                gap: 1.5rem;
+            }
+
+            .job-actions {
+                grid-column: 1 / -1;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-banner {
+                margin-top: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .controls-bar {
+                flex-direction: column;
+            }
+
+            .job-card {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .company-logo {
+                margin: 0 auto;
+            }
+
+            .tags {
+                justify-content: center;
+            }
+
+            .job-actions {
+                align-items: center;
+            }
+
+            .action-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background"></div>
+
+    <!-- Header  -->
+
+    <header id="header">
+        <a href="../index.html" style="text-decoration: none;">
+            <div class="logo">
+                <div class="logo-icon">🛄</div>
+                <span>JobPath</span>
+            </div>
+        </a>
+
+        <!-- Hamburger -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <div class="nav-wrapper" id="navWrapper">
+            <nav>
+                <a href="../pages/1-listing.html" class="active2">Job Listings</a>
+                <a href="../pages/2-career.html">Career Resources</a>
+                <a href="../pages/3-success.html">Success Stories</a>
+            </nav>
+            <div class="header-actions">
+                <a href="../login.html" class="btn btn-secondary">Log In</a>
+                <a href="../signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section  -->
+
+    <section class="hero-banner">
+        <div class="landscape">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Job Listings</h1>
+            <p>Track and manage all your job applications in one place.</p>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div class="controls-bar">
+            <div class="search-box">
+                <input type="text" placeholder="Search jobs...">
+            </div>
+            <select class="filter-select">
+                <option>All Statuses</option>
+                <option>Interview Scheduled</option>
+                <option>Applied</option>
+                <option>In Review</option>
+                <option>Rejected</option>
+                <option>Archived</option>
+            </select>
+            <select class="filter-select">
+                <option>Sort by Latest</option>
+                <option>Sort by Oldest</option>
+                <option>Sort by Priority</option>
+                <option>Sort by Company</option>
+            </select>
+            <button class="btn btn-success">
+                <span>+</span> Add Job
+            </button>
+        </div>
+
+        <div class="jobs-list">
+            <!-- Job Card 1 -->
+            <div class="job-card">
+                <div class="company-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='70'%3EG%3C/text%3E%3C/svg%3E"
+                        alt="Google" style="width: 100%; height: 100%;">
+                </div>
+                <div class="job-details">
+                    <div class="job-header">
+                        <h3 class="job-title">Software Engineer</h3>
+                        <p class="company-name">Google</p>
+                    </div>
+                    <div class="job-meta">
+                        <span>Applied: June 15, 2023</span>
+                        <span>•</span>
+                        <span>via LinkedIn</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag tag-company">Google</span>
+                        <span class="tag tag-source">LinkedIn</span>
+                        <span class="tag tag-priority">❤️ High Priority</span>
+                        <span class="tag tag-priority">📌</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <div class="status-badge status-interview">Interview Scheduled</div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" title="Edit">✏️</button>
+                        <button class="icon-btn" title="External Link">🔗</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 2 -->
+            <div class="job-card">
+                <div class="company-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%231DB954'/%3E%3C/svg%3E"
+                        alt="Spotify" style="width: 100%; height: 100%;">
+                </div>
+                <div class="job-details">
+                    <div class="job-header">
+                        <h3 class="job-title">Frontend Developer</h3>
+                        <p class="company-name">Spotify</p>
+                    </div>
+                    <div class="job-meta">
+                        <span>Applied: June 10, 2023</span>
+                        <span>•</span>
+                        <span>via Website</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag tag-company">Spotify</span>
+                        <span class="tag tag-source">Company Website</span>
+                        <span class="tag tag-priority-low">⚫ Medium</span>
+                        <span class="tag tag-priority-low">💬</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <div class="status-badge status-applied">Applied</div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" title="Edit">✏️</button>
+                        <button class="icon-btn" title="External Link">🔗</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 3 -->
+            <div class="job-card">
+                <div class="company-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='70'%3E🍎%3C/text%3E%3C/svg%3E"
+                        alt="Apple" style="width: 100%; height: 100%;">
+                </div>
+                <div class="job-details">
+                    <div class="job-header">
+                        <h3 class="job-title">Marketing Specialist</h3>
+                        <p class="company-name">Apple</p>
+                    </div>
+                    <div class="job-meta">
+                        <span>Applied: June 5, 2023</span>
+                        <span>•</span>
+                        <span>via Indeed</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag tag-company">Apple</span>
+                        <span class="tag tag-source">Indeed</span>
+                        <span class="tag tag-priority">❤️ High Priority</span>
+                        <span class="tag tag-priority">📌</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <div class="status-badge status-review">In Review</div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" title="Edit">✏️</button>
+                        <button class="icon-btn" title="External Link">🔗</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 4 -->
+            <div class="job-card">
+                <div class="company-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='50'%3Ea%3C/text%3E%3C/svg%3E"
+                        alt="Amazon" style="width: 100%; height: 100%;">
+                </div>
+                <div class="job-details">
+                    <div class="job-header">
+                        <h3 class="job-title">UI/UX Designer</h3>
+                        <p class="company-name">Amazon</p>
+                    </div>
+                    <div class="job-meta">
+                        <span>Applied: May 28, 2023</span>
+                        <span>•</span>
+                        <span>via Glassdoor</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag tag-company">Amazon</span>
+                        <span class="tag tag-source">Glassdoor</span>
+                        <span class="tag tag-priority-low">📊 Low Priority</span>
+                        <span class="tag tag-priority-low">💬</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <div class="status-badge status-rejected">Rejected</div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" title="Edit">✏️</button>
+                        <button class="icon-btn" title="External Link">🔗</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Job Card 5 -->
+            <div class="job-card">
+                <div class="company-logo">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='75' font-size='40'%3E⊞%3C/text%3E%3C/svg%3E"
+                        alt="Microsoft" style="width: 100%; height: 100%;">
+                </div>
+                <div class="job-details">
+                    <div class="job-header">
+                        <h3 class="job-title">Data Analyst Intern</h3>
+                        <p class="company-name">Microsoft</p>
+                    </div>
+                    <div class="job-meta">
+                        <span>Applied: May 20, 2023</span>
+                        <span>•</span>
+                        <span>via Internshala</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag tag-company">Microsoft</span>
+                        <span class="tag tag-source">Internshala</span>
+                    </div>
+                </div>
+                <div class="job-actions">
+                    <div class="status-badge status-archived">Archived</div>
+                    <div class="action-buttons">
+                        <button class="icon-btn" title="Edit">✏️</button>
+                        <button class="icon-btn" title="External Link">🔗</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer  -->
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-box brand">
+                <img src="../assets/JobPathLogo.png" alt="SkyAccess Logo" class="logo-img">
+                <h3>SkyAccess</h3>
+                <p>Secure, scalable & simple cloud storage platform.</p>
+            </div>
+
+            <div class="footer-box">
+                <h3>Legal</h3>
+                <span class="underline"></span>
+                <ul>
+                    <li><a href="../footer-pages/5-privacy/privacy.html">Privacy Policy</a></li>
+                    <li><a href="../footer-pages/6-faq/faq.html">FAQ</a></li>
+                    <li><a href="../footer-pages/7-support/support.html">Support</a></li>
+                    <li><a href="../footer-pages/8-terms/terms.html">Terms of Services</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h3>Contact Us</h3>
+                <span class="underline"></span>
+                <p>Noida, Uttar Pradesh (India)</p>
+                <p>Phone: +91 8958151939</p>
+                <p>Email: shivm.tech8@gmail.com</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 SkyAccess. All rights reserved
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        const searchInput = document.querySelector('.search-box input');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            jobCards.forEach(card => {
+                const title = card.querySelector('.job-title').textContent.toLowerCase();
+                const company = card.querySelector('.company-name').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || company.includes(searchTerm)) {
+                    card.style.display = 'grid';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Filter by status
+        const statusFilter = document.querySelectorAll('.filter-select')[0];
+        statusFilter.addEventListener('change', (e) => {
+            const selectedStatus = e.target.value;
+
+            jobCards.forEach(card => {
+                if (selectedStatus === 'All Statuses') {
+                    card.style.display = 'grid';
+                } else {
+                    const statusBadge = card.querySelector('.status-badge').textContent;
+                    if (statusBadge === selectedStatus) {
+                        card.style.display = 'grid';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }
+            });
+        });
+
+
+        // Add page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Tag hover effects
+        const tags = document.querySelectorAll('.tag');
+        tags.forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // add job 
+
+        const btnSuccess = document.querySelector('.btn-success');
+
+        if (btnSuccess) {
+            btnSuccess.addEventListener('click', () => {
+                alert("Please Login First");
+            });
+        }
+
+    </script>
+    
+    <script src="../js/header.js"></script>
+
+</body>
+
+</html>

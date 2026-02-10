@@ -1,0 +1,14 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#2563EB"></rect>
+
+  <!-- Path -->
+  <path d="M22 48C22 34 42 34 42 18" stroke="white" stroke-width="3" stroke-linecap="round"></path>
+
+  <!-- Arrow -->
+  <path d="M39 20L42 17L45 20" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+
+  <!-- Briefcase -->
+  <rect x="18" y="34" width="28" height="16" rx="3" fill="white"></rect>
+  <rect x="26" y="30" width="12" height="6" rx="2" fill="white"></rect>
+</svg>

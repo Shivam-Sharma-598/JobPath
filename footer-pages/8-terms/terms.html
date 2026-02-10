@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: #F8FBFF;
+            min-height: 100vh;
+        }
+
+
+        /* ScrollBar  */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4c6eb5, #3b5998);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.4s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+            transform: translateX(-5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 7rem 5% 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-section .last-updated {
+            font-size: 1.1rem;
+            color: #5A6F7F;
+            font-weight: 500;
+        }
+
+        /* Content Container */
+        .content-container {
+            background: white;
+            padding: 4rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Terms Section */
+        .terms-section {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #E8EDF2;
+        }
+
+        .terms-section:last-child {
+            border-bottom: none;
+        }
+
+        .terms-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+
+        .terms-section h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin: 2rem 0 1rem;
+        }
+
+        .terms-section p {
+            color: #5A6F7F;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        .terms-section ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+        }
+
+        .terms-section li {
+            color: #5A6F7F;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .terms-section li::marker {
+            color: var(--accent-gold);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-gold);
+            margin: 2rem 0;
+        }
+
+        .highlight-box h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlight-box p {
+            color: #5A6F7F;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .contact-section a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .contact-section a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--deep-navy);
+            padding: 3rem 5%;
+            margin-top: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-container {
+                padding: 2rem;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .terms-section h2 {
+                font-size: 1.8rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background"></div>
+
+    <header>
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">🛄</div>
+            <span>JobPath</span>
+        </a>
+        <a href="../../index.html" class="back-link">
+            <span>←</span>
+            <span>Back to Home</span>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Effective Date: February, 2026</p>
+        </div>
+
+        <div class="content-container">
+            <div class="highlight-box">
+                <h4>⚡ Important Notice</h4>
+                <p>By accessing or using JobPath, you agree to be bound by these Terms of Service. Please read them
+                    carefully before using our platform.</p>
+            </div>
+
+            <!-- Acceptance -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">✅</span>
+                    Acceptance of Terms
+                </h2>
+                <p>These Terms of Service govern your use of JobPath. By creating an account or using our services, you
+                    acknowledge that you have read, understood, and agree to be bound by these terms.</p>
+                <p>If you do not agree with any part of these terms, you may not access or use JobPath.</p>
+            </div>
+
+            <!-- Services -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">💼</span>
+                    Description of Services
+                </h2>
+                <p>JobPath provides:</p>
+                <ul>
+                    <li>Job application tracking and management tools</li>
+                    <li>Resume building and customization features</li>
+                    <li>Career resources, guides, and educational content</li>
+                    <li>Interview preparation materials and tips</li>
+                    <li>Analytics and insights about your job search</li>
+                </ul>
+                <p>We reserve the right to modify, suspend, or discontinue any aspect of our services at any time.</p>
+            </div>
+
+            <!-- User Accounts -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">👤</span>
+                    User Accounts
+                </h2>
+                <h3>Account Creation</h3>
+                <p>You must provide accurate and complete information when creating your account. You are responsible
+                    for maintaining the confidentiality of your account credentials.</p>
+
+                <h3>Account Responsibilities</h3>
+                <ul>
+                    <li>You must be at least 18 years old to use JobPath</li>
+                    <li>One person or entity may not maintain more than one account</li>
+                    <li>You are responsible for all activities under your account</li>
+                    <li>Notify us immediately of any unauthorized access</li>
+                </ul>
+            </div>
+
+            <!-- Acceptable Use -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">⚖️</span>
+                    Acceptable Use Policy
+                </h2>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Violate any applicable laws or regulations</li>
+                    <li>Infringe on intellectual property rights</li>
+                    <li>Upload malicious code or harmful content</li>
+                    <li>Attempt to gain unauthorized access to our systems</li>
+                    <li>Use the service for any illegal or unauthorized purpose</li>
+                    <li>Harass, abuse, or harm other users</li>
+                    <li>Scrape or collect data without permission</li>
+                </ul>
+            </div>
+
+            <!-- Intellectual Property -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">©️</span>
+                    Intellectual Property
+                </h2>
+                <h3>Our Content</h3>
+                <p>All content, features, and functionality on JobPath are owned by us and protected by copyright,
+                    trademark, and other intellectual property laws.</p>
+
+                <h3>Your Content</h3>
+                <p>You retain ownership of content you upload. By using JobPath, you grant us a license to use, store,
+                    and display your content solely for providing our services.</p>
+            </div>
+
+            <!-- Termination -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">🚫</span>
+                    Termination
+                </h2>
+                <p>We may suspend or terminate your account if you violate these terms. You may delete your account at
+                    any time from your account settings.</p>
+                <p>Upon termination, your right to use JobPath will immediately cease, and we may delete your data in
+                    accordance with our Privacy Policy.</p>
+            </div>
+
+            <!-- Disclaimers -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">⚠️</span>
+                    Disclaimers and Limitations
+                </h2>
+                <p>JobPath is provided "as is" without warranties of any kind. We do not guarantee:</p>
+                <ul>
+                    <li>Uninterrupted or error-free service</li>
+                    <li>Job placement or employment outcomes</li>
+                    <li>Accuracy of third-party content or links</li>
+                    <li>Security of data transmission over the internet</li>
+                </ul>
+                <p>We are not liable for any indirect, incidental, or consequential damages arising from your use of
+                    JobPath.</p>
+            </div>
+
+            <!-- Changes -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">🔄</span>
+                    Changes to Terms
+                </h2>
+                <p>We may update these Terms of Service at any time. We will notify you of significant changes via email
+                    or through the platform. Continued use after changes constitutes acceptance of the updated terms.
+                </p>
+            </div>
+
+            <!-- Governing Law -->
+            <div class="terms-section">
+                <h2>
+                    <span class="section-icon">📜</span>
+                    Governing Law
+                </h2>
+                <p>These terms are governed by the laws of the State of California, United States, without regard to
+                    conflict of law provisions. Any disputes shall be resolved in the courts located in San Francisco,
+                    California.</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <h2>Questions About These Terms?</h2>
+                <p>If you have questions about our Terms of Service, please contact us:</p>
+                <p>
+                    📧 Email: <a href="mailto:shivm.tech8@gmail.com">shivm.tech8@gmail.com</a><br>
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

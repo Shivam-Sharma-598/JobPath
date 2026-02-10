@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+            --success-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C5E7FF 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        /* ScrollBar  */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        /* Animated Background */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.6) 0%, transparent 70%);
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 184, 0, 0.5) 0%, transparent 70%);
+            bottom: 10%;
+            left: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 50px) scale(1.2);
+            }
+        }
+
+        /* Signup Container */
+        .signup-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin: 2rem;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Left Side - Illustration */
+        .signup-illustration {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--primary-blue) 50%, var(--deep-navy) 100%);
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-illustration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.03) 10px, rgba(255, 255, 255, 0.03) 20px);
+            animation: slidePattern 20s linear infinite;
+        }
+
+        @keyframes slidePattern {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(28.28px);
+            }
+        }
+
+        .illustration-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .illustration-icon {
+            font-size: 12rem;
+            margin-bottom: 2rem;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .illustration-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .illustration-content p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.7;
+            max-width: 400px;
+        }
+
+        .benefits-list {
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit-text {
+            font-size: 1.1rem;
+        }
+
+        /* Right Side - Form */
+        .signup-form-section {
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out 0.2s both;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.4s ease;
+        }
+
+        .logo-icon:hover {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+        }
+
+        .form-header {
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease-out 0.3s both;
+        }
+
+        .form-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 0.8rem;
+            letter-spacing: -1px;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            color: #5A6F7F;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            position: relative;
+            animation: fadeInDown 0.8s ease-out 0.4s both;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #E0E8F0;
+            z-index: 0;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start) 0%, var(--accent-gold) 100%);
+            transition: width 0.4s ease;
+            z-index: 1;
+        }
+
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #E0E8F0;
+            color: #7A8F9F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-circle {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            box-shadow: 0 8px 20px rgba(30, 136, 229, 0.4);
+            transform: scale(1.1);
+        }
+
+        .step.completed .step-circle {
+            background: var(--success-green);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: #7A8F9F;
+            font-weight: 600;
+        }
+
+        .step.active .step-label {
+            color: var(--primary-blue);
+        }
+
+        .signup-form {
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--deep-navy);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #7A8F9F;
+            transition: color 0.3s;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.2rem;
+            border: 2px solid #E0E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: #F8FAFC;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            background: white;
+            box-shadow: 0 8px 25px rgba(11, 79, 138, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .form-input:focus+.input-icon {
+            color: var(--primary-blue);
+        }
+
+        select.form-input {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%237A8F9F" stroke-width="2" stroke-linecap="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 3rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary-blue);
+            margin-top: 2px;
+        }
+
+        .checkbox-group label {
+            color: #5A6F7F;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .checkbox-group a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .checkbox-group a:hover {
+            color: var(--accent-gold);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1.1rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .btn-secondary {
+            background: #E0E8F0;
+            color: var(--deep-navy);
+        }
+
+        .btn-secondary:hover {
+            background: #D0DCE8;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            box-shadow: 0 15px 40px rgba(30, 136, 229, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(30, 136, 229, 0.4);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-green) 0%, #388E3C 100%);
+            color: white;
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 50px rgba(76, 175, 80, 0.4);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 1.5rem 0;
+            color: #7A8F9F;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #E0E8F0;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            font-size: 0.85rem;
+        }
+
+        .social-signup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            padding: 1rem;
+            border: 2px solid #E0E8F0;
+            border-radius: 12px;
+            background: white;
+            font-weight: 600;
+            color: var(--deep-navy);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            font-size: 0.95rem;
+        }
+
+        .social-btn:hover {
+            border-color: var(--primary-blue);
+            background: #F8FAFC;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icon {
+            font-size: 1.2rem;
+        }
+
+        .login-link {
+            text-align: center;
+            color: #5A6F7F;
+            font-size: 0.95rem;
+            margin-top: 1.5rem;
+        }
+
+        .login-link a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .login-link a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .signup-container {
+                grid-template-columns: 1fr;
+            }
+
+            .signup-illustration {
+                display: none;
+            }
+
+            .signup-form-section {
+                padding: 3rem 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-form-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .social-signup {
+                grid-template-columns: 1fr;
+            }
+
+            .form-buttons {
+                flex-direction: column-reverse;
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader {
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="animated-background">
+        <div class="grid-background"></div>
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+    </div>
+
+    <div class="signup-container">
+        <!-- Left Side - Illustration -->
+        <div class="signup-illustration">
+            <div class="illustration-content">
+                <div class="illustration-icon">🌟</div>
+                <h2>Start Your Success Journey</h2>
+
+                <div class="benefits-list">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-text">Track all applications</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">📚</div>
+                        <div class="benefit-text">Expert career resources</div>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🎯</div>
+                        <div class="benefit-text">Personalized job matches</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Form -->
+        <div class="signup-form-section">
+            <div class="logo-section">
+                <div class="logo-icon">🛄</div>
+                <div class="logo-text">JobPath</div>
+            </div>
+
+            <div class="form-header">
+                <h1>Create Account</h1>
+                <p>Fill in your details to get started</p>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="progress-line" id="progressLine"></div>
+                <div class="step active" data-step="1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Personal</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Account</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Complete</div>
+                </div>
+            </div>
+
+            <form class="signup-form" id="signupForm">
+                <!-- Step 1: Personal Info -->
+                <div class="form-step active" data-step="1">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="firstName" class="form-input" placeholder="John" required>
+                                <span class="input-icon">👤</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="lastName" class="form-input" placeholder="Doe" required>
+                                <span class="input-icon">👤</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Account Info -->
+                <div class="form-step" data-step="2">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com"
+                                required>
+                            <span class="input-icon">📧</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="signupPassword" class="form-input" placeholder="••••••••"
+                                required>
+                            <span class="input-icon">🔒</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="confirmPassword2" class="form-input" placeholder="••••••••"
+                                required>
+                            <span class="input-icon">🔒</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="careerStage">Career Stage</label>
+                        <div class="input-wrapper">
+                            <select id="careerStage" class="form-input" required>
+                                <option value="">Select your career stage</option>
+                                <option value="student">Student</option>
+                                <option value="entry">Entry Level</option>
+                                <option value="mid">Mid-Level Professional</option>
+                                <option value="senior">Senior Professional</option>
+                                <option value="executive">Executive</option>
+                            </select>
+                            <span class="input-icon">💼</span>
+                        </div>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep()">Next</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Final Step -->
+                <div class="form-step" data-step="3">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">
+                            I agree to the <a href="footer-pages/8-terms/terms.html">Terms of Service</a> and <a
+                                href="footer-pages\5-privacy\privacy.html">Privacy
+                                Policy</a>
+                        </label>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="newsletter">
+                        <label for="newsletter">
+                            Send me career tips, job alerts, and product updates
+                        </label>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">Back</button>
+                        <button type="submit" class="btn btn-success">Create Account</button>
+                        <span id="btnLoader" style="display:none;">⏳ Creating...</span>
+                    </div>
+
+
+                </div>
+            </form>
+
+            <p class="login-link">
+                Already have an account? <a href="login.html">Log In</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function updateProgress() {
+            const progressLine = document.getElementById('progressLine');
+            const percentage = ((currentStep - 1) / (totalSteps - 1)) * 100;
+            progressLine.style.width = percentage + '%';
+
+            // Update step indicators
+            document.querySelectorAll('.step').forEach((step, index) => {
+                const stepNum = index + 1;
+                step.classList.remove('active', 'completed');
+
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                    step.querySelector('.step-circle').textContent = '✓';
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                    step.querySelector('.step-circle').textContent = stepNum;
+                } else {
+                    step.querySelector('.step-circle').textContent = stepNum;
+                }
+            });
+
+            // Update form steps
+            document.querySelectorAll('.form-step').forEach((formStep, index) => {
+                formStep.classList.remove('active');
+                if (index + 1 === currentStep) {
+                    formStep.classList.add('active');
+                }
+            });
+        }
+
+        function nextStep() {
+            const currentFormStep = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+            const inputs = currentFormStep.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value) {
+                    isValid = false;
+                    input.style.borderColor = '#EF5350';
+                } else {
+                    input.style.borderColor = '#E0E8F0';
+                }
+            });
+
+            if (isValid && currentStep < totalSteps) {
+                currentStep++;
+                updateProgress();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateProgress();
+            }
+        }
+
+        // Button ripple effect
+        const buttons = document.querySelectorAll('.btn, .social-btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.pointerEvents = 'none';
+
+                ripple.animate([
+                    { transform: 'scale(0)', opacity: 1 },
+                    { transform: 'scale(4)', opacity: 0 }
+                ], {
+                    duration: 600,
+                    easing: 'ease-out'
+                });
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Input validation styling
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function () {
+                if (this.hasAttribute('required') && !this.value) {
+                    this.style.borderColor = '#EF5350';
+                } else {
+                    this.style.borderColor = '#E0E8F0';
+                }
+            });
+
+            input.addEventListener('input', function () {
+                if (this.value) {
+                    this.style.borderColor = '#4CAF50';
+                }
+            });
+        });
+
+        // Social signup handlers
+        const socialButtons = document.querySelectorAll('.social-btn');
+        socialButtons.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const provider = this.textContent.trim();
+                console.log(`Sign up with ${provider}`);
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Initialize progress
+        updateProgress();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth-guard.js"></script>
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>

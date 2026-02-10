@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/footer.css">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+            --success-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, var(--sky-light) 100%);
+            min-height: 100vh;
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 10rem 5% 6rem;
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #C5E7FF 100%);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(30, 136, 229, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(50px, 30px) scale(1.1);
+            }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-gold);
+            top: -10%;
+            animation: confettiFall 4s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes confettiFall {
+            to {
+                transform: translateY(120vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            color: #5A6F7F;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Celebration Characters */
+        .celebration-characters {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 2rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .character {
+            font-size: 8rem;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .character:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .character:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .trophy {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 4rem;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(1.2);
+            }
+        }
+
+        /* Landscape */
+        .landscape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background:
+                linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0.8) 100%);
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+            opacity: 0.7;
+            animation: floatCloud 30s infinite ease-in-out;
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 100px;
+        }
+
+        .cloud1 {
+            width: 100px;
+            height: 40px;
+            top: 20px;
+            right: 15%;
+        }
+
+        .cloud1::before {
+            width: 50px;
+            height: 50px;
+            top: -25px;
+            left: 10px;
+        }
+
+        .cloud1::after {
+            width: 60px;
+            height: 40px;
+            top: -15px;
+            right: 10px;
+        }
+
+        @keyframes floatCloud {
+
+            0%,
+            100% {
+                transform: translateX(0) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-100px) translateY(-10px);
+            }
+        }
+
+        /* Call to Action Section */
+        .cta-section {
+            position: relative;
+            padding: 5rem 5%;
+            background: white;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .cta-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            color: #5A6F7F;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            position: relative;
+            padding: 5rem 5% 8rem;
+            background: linear-gradient(180deg, white 0%, var(--sky-light) 100%);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .testimonial-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .testimonial-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .testimonial-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .testimonial-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.08), transparent);
+            transition: left 0.6s;
+        }
+
+        .testimonial-card:hover::before {
+            left: 100%;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 70px rgba(11, 79, 138, 0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--accent-gold) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+            transition: transform 0.4s;
+            flex-shrink: 0;
+        }
+
+        .testimonial-card:hover .avatar {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .testimonial-info {
+            flex: 1;
+        }
+
+        .testimonial-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-info .position {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.3rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .star {
+            color: var(--accent-gold);
+            animation: starTwinkle 2s infinite ease-in-out;
+        }
+
+        .star:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .star:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .star:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .star:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .star:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes starTwinkle {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: scale(0.9);
+            }
+        }
+
+        .quote-badge {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            color: #5A6F7F;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .testimonial-text .highlight {
+            font-weight: 700;
+            color: var(--deep-navy);
+        }
+
+        .company-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, #F5F7FA 0%, #E8EDF2 100%);
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .company-badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .company-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            position: relative;
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--sky-light) 0%, #B8E0FF 100%);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 184, 0, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 10;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+        }
+
+        .final-cta p {
+            font-size: 1.3rem;
+            color: #5A6F7F;
+            margin-bottom: 2.5rem;
+        }
+
+
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .celebration-characters {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .cta-content h2,
+            .final-cta h2 {
+                font-size: 2rem;
+            }
+
+            .testimonial-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .hero-section {
+                margin-top: -1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background"></div>
+
+    <!-- Header  -->
+
+    <header id="header">
+        <a href="../index.html" style="text-decoration: none;">
+            <div class="logo">
+                <div class="logo-icon">🛄</div>
+                <span>JobPath</span>
+            </div>
+        </a>
+
+        <!-- Hamburger -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
+
+        <div class="nav-wrapper" id="navWrapper">
+            <nav>
+                <a href="../pages/1-listing.html">Job Listings</a>
+                <a href="../pages/2-career.html">Career Resources</a>
+                <a href="../pages/3-success.html" class="active2">Success Stories</a>
+            </nav>
+            <div class="header-actions">
+                <a href="../login.html" class="btn btn-secondary">Log In</a>
+                <a href="../signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="confetti" id="confetti"></div>
+        <div class="landscape">
+            <div class="cloud cloud1"></div>
+        </div>
+
+        <div class="celebration-characters">
+            <div class="trophy">🏆</div>
+            <!-- <div class="character">🙋‍♀️</div> -->
+            <!-- <div class="character">🙋‍♂️</div> -->
+        </div>
+
+        <div class="hero-content">
+            <h1>Success Stories</h1>
+            <p>Be inspired by our users who landed their dream jobs with JobPath.</p>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-content">
+            <h2>Join thousands of happy job seekers who found success with JobPath.</h2>
+            <p>Real stories, real results. See how JobPath has helped users achieve their career goals.</p>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">👩</div>
+                    <div class="testimonial-info">
+                        <h3>Sarah M.</h3>
+                        <p class="position">Hired at Microsoft</p>
+                        <div class="stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="quote-badge">💬</div>
+                </div>
+                <p class="testimonial-text">
+                    JobPath was a <span class="highlight">game-changer</span> for me. The resources and easy-to-use
+                    tracker helped me organize my job search and land my dream job at Microsoft!
+                </p>
+                <div class="company-badge">
+                    <span class="company-icon">⊞</span>
+                    <span>Microsoft</span>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">👨</div>
+                    <div class="testimonial-info">
+                        <h3>David L.</h3>
+                        <p class="position">Now a UI/UX Designer</p>
+                        <div class="stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="quote-badge">💬</div>
+                </div>
+                <p class="testimonial-text">
+                    Thanks to JobPath, I stayed <span class="highlight">organized and focused</span>. The interview tips
+                    and resume builder were invaluable in securing my role at Amazon as a UI/UX designer.
+                </p>
+                <div class="company-badge">
+                    <span class="company-icon">a</span>
+                    <span>Amazon</span>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">👩‍🦰</div>
+                    <div class="testimonial-info">
+                        <h3>Emma S.</h3>
+                        <p class="position">Marketing Specialist</p>
+                        <div class="stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="quote-badge">💬</div>
+                </div>
+                <p class="testimonial-text">
+                    The platform made everything so much <span class="highlight">easier</span>. From resume writing tips
+                    to application tracking, JobPath guided me every step of the way to my marketing role at Apple. 💙💙
+                </p>
+                <div class="company-badge">
+                    <span class="company-icon">🍎</span>
+                    <span>Apple</span>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="avatar">👨‍💼</div>
+                    <div class="testimonial-info">
+                        <h3>James T.</h3>
+                        <p class="position">Now a Software Engineer</p>
+                        <div class="stars">
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                            <span class="star">⭐</span>
+                        </div>
+                    </div>
+                    <div class="quote-badge">💬</div>
+                </div>
+                <p class="testimonial-text">
+                    After using JobPath, I felt more <span class="highlight">confident</span> in my job search. The
+                    skill development resources helped me land my position as a Software Engineer at Google. 💙💙
+                </p>
+                <div class="company-badge">
+                    <span class="company-icon">G</span>
+                    <span>Google</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta">
+        <div class="final-cta-content">
+            <h2>Ready to start your own success story?</h2>
+            <p>Find your dream job today.</p>
+            <a href="../signup.html"> <button class="btn btn-success">Get Started</button></a>
+        </div>
+    </section>
+
+    <!-- Footer  -->
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-box brand">
+                <img src="../assets/JobPathLogo.png" alt="SkyAccess Logo" class="logo-img">
+                <h3>SkyAccess</h3>
+                <p>Secure, scalable & simple cloud storage platform.</p>
+            </div>
+
+            <div class="footer-box">
+                <h3>Legal</h3>
+                <span class="underline"></span>
+                <ul>
+                    <li><a href="../footer-pages/5-privacy/privacy.html">Privacy Policy</a></li>
+                    <li><a href="../footer-pages/6-faq/faq.html">FAQ</a></li>
+                    <li><a href="../footer-pages/7-support/support.html">Support</a></li>
+                    <li><a href="../footer-pages/8-terms/terms.html">Terms of Services</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h3>Contact Us</h3>
+                <span class="underline"></span>
+                <p>Noida, Uttar Pradesh (India)</p>
+                <p>Phone: +91 8958151939</p>
+                <p>Email: shivm.tech8@gmail.com</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 SkyAccess. All rights reserved
+        </div>
+    </footer>
+    <script>
+        // Create confetti
+        const confettiContainer = document.getElementById('confetti');
+        const colors = ['#FFB800', '#1E88E5', '#4CAF50', '#EF5350', '#9C27B0'];
+
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti-piece';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDelay = Math.random() * 4 + 's';
+            confetti.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            confettiContainer.appendChild(confetti);
+        }
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.padding = '1rem 5%';
+                header.style.boxShadow = '0 8px 40px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.padding = '1.5rem 5%';
+                header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.05)';
+            }
+        });
+
+        // 3D card tilt effect
+        const cards = document.querySelectorAll('.testimonial-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const characters = document.querySelector('.celebration-characters');
+            if (characters) {
+                characters.style.transform = `translateY(calc(-50% + ${scrolled * 0.3}px))`;
+            }
+        });
+    </script>
+
+    <script src="../js/header.js"></script>
+
+</body>
+
+</html>

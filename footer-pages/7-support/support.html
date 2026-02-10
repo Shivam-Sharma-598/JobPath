@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+            --success-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #E8F4FD 0%, #C5E7FF 100%);
+            min-height: 100vh;
+        }
+
+        /* ScrollBar  */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4c6eb5, #3b5998);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+        }
+
+        /* Animated Background Grid */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.4s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+            transform: translateX(-5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 7rem 5% 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #5A6F7F;
+        }
+
+        /* Support Options */
+        .support-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .support-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+
+        .support-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 70px rgba(11, 79, 138, 0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .support-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 30px rgba(30, 136, 229, 0.3);
+            transition: transform 0.4s;
+        }
+
+        .support-card:hover .support-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .support-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 0.8rem;
+        }
+
+        .support-card p {
+            color: #5A6F7F;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .support-card a {
+            color: var(--primary-blue);
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .support-card a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Contact Form Section */
+        .contact-form-section {
+            background: white;
+            padding: 4rem;
+            border-radius: 30px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 0.15);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .form-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            color: #5A6F7F;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--deep-navy);
+            font-size: 0.95rem;
+        }
+
+        .required {
+            color: #EF5350;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #9AA5B1;
+            transition: color 0.3s;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3.5rem;
+            border: 2px solid #E0E8F0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 5px 25px rgba(11, 79, 138, 0.15);
+        }
+
+        .form-input:focus+.input-icon,
+        .form-select:focus+.input-icon,
+        .form-textarea:focus+.input-icon {
+            color: var(--primary-blue);
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L11 1" stroke="%239AA5B1" stroke-width="2" stroke-linecap="round"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 1.5rem center;
+            padding-right: 3.5rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 40px rgba(30, 136, 229, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            width: 400px;
+            height: 400px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(30, 136, 229, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .support-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-form-section {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background"></div>
+
+    <header>
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">🛄</div>
+            <span>JobPath</span>
+        </a>
+        <a href="../../index.html" class="back-link">
+            <span>←</span>
+            <span>Back to Home</span>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <h1>How Can We Help?</h1>
+            <p>We're here to support you every step of your job search journey</p>
+        </div>
+
+        <!-- Support Options -->
+        <div class="support-options">
+            <div class="support-card">
+                <div class="support-icon">📧</div>
+                <h3>Email Support</h3>
+                <p>Get detailed help from our support team</p>
+                <a href="mailto:shivm.tech8@gmail.com">shivm.tech8@gmail.com</a>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">💬</div>
+                <h3>Live Chat</h3>
+                <p>Chat with us in real-time for quick answers</p>
+                <a href="#" onclick="alert('Live chat coming soon!'); return false;">Start Chat</a>
+            </div>
+
+            <div class="support-card">
+                <div class="support-icon">❓</div>
+                <h3>Help Center</h3>
+                <p>Browse our FAQ and knowledge base</p>
+                <a href="../6-faq/faq.html">Visit Help Center</a>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-section">
+            <div class="form-header">
+                <h2>Send Us a Message</h2>
+                <p>Fill out the form below and we'll get back to you within 24 hours</p>
+            </div>
+
+            <form class="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="firstName" class="form-input" placeholder="John" required>
+                            <span class="input-icon">👤</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lastName">Last Name <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                            <input type="text" id="lastName" class="form-input" placeholder="Doe" required>
+                            <span class="input-icon">👤</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" class="form-input" placeholder="john.doe@example.com" required>
+                        <span class="input-icon">✉️</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <select id="subject" class="form-select" required>
+                            <option value="">Select a subject</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="billing">Billing Question</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="bug">Report a Bug</option>
+                            <option value="feedback">General Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="input-icon">📋</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message <span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <textarea id="message" class="form-textarea" placeholder="Tell us how we can help you..."
+                            required></textarea>
+                        <span class="input-icon" style="top: 1.5rem;">💬</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Form submission
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            console.log('Form Data:', formData);
+            alert('Thank you for contacting us! We will respond within 24 hours.');
+            form.reset();
+        });
+
+        // Input focus effects
+        const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.style.transform = 'scale(1.01)';
+                this.parentElement.style.transition = 'transform 0.3s';
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

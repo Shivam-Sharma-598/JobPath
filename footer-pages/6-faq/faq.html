@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <title>JobPath</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0B4F8A;
+            --accent-gold: #FFB800;
+            --deep-navy: #0A2540;
+            --sky-light: #E8F4FD;
+            --gradient-start: #1E88E5;
+            --gradient-end: #0D47A1;
+            --success-green: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--deep-navy);
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #ffffff 0%, var(--sky-light) 100%);
+            min-height: 100vh;
+        }
+
+        /* ScrollBar  */
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #4c6eb5, #3b5998);
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #4299e1, #3182ce);
+        }
+
+        /* Animated Background */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(11, 79, 138, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(11, 79, 138, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.3);
+            transform: rotate(-5deg);
+            transition: transform 0.4s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--accent-gold);
+            transform: translateX(-5px);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 7rem 5% 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--deep-navy);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #5A6F7F;
+        }
+
+        /* Search Box */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+            border: 3px solid #E0E8F0;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 10px 40px rgba(255, 184, 0, 0.2);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+        }
+
+        /* Categories */
+        .categories {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.8rem;
+            border: 2px solid #E0E8F0;
+            background: white;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .category-btn:hover,
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(30, 136, 229, 0.3);
+        }
+
+        /* FAQ Container */
+        .faq-container {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            transition: all 0.4s;
+            border: 2px solid transparent;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 15px 50px rgba(11, 79, 138, 0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .faq-question {
+            padding: 2rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .faq-question h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            flex: 1;
+        }
+
+        .faq-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.4s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            padding: 0 2.5rem;
+        }
+
+        .faq-answer-content {
+            padding-bottom: 2rem;
+            color: #5A6F7F;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            padding: 4rem;
+            border-radius: 30px;
+            text-align: center;
+            margin-top: 4rem;
+            color: white;
+            box-shadow: 0 20px 60px rgba(30, 136, 229, 0.3);
+        }
+
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.4s;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--deep-navy);
+            box-shadow: 0 10px 30px rgba(255, 184, 0, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 184, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .categories {
+                flex-direction: column;
+            }
+
+            .faq-question {
+                padding: 1.5rem;
+            }
+
+            .faq-question h3 {
+                font-size: 1.1rem;
+            }
+
+            .cta-section {
+                padding: 2.5rem 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-background"></div>
+
+    <header>
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">🛄</div>
+            <span>JobPath</span>
+        </a>
+        <a href="../../index.html" class="back-link">
+            <span>←</span>
+            <span>Back to Home</span>
+        </a>
+    </header>
+
+    <main class="main-content">
+        <div class="hero-section">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about JobPath</p>
+        </div>
+
+        <div class="faq-container">
+            <!-- Getting Started -->
+            <div class="faq-item" data-category="getting-started">
+                <div class="faq-question">
+                    <h3>What is JobPath?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        JobPath is a comprehensive job search platform that helps you organize applications, build
+                        resumes, and access career resources—all in one place.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="getting-started">
+                <div class="faq-question">
+                    <h3>How do I get started?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Simply sign up for a free account, add your first job application, and start tracking your job
+                        search journey. Our intuitive dashboard guides you through each step.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features -->
+            <div class="faq-item" data-category="features">
+                <div class="faq-question">
+                    <h3>Can I track multiple job applications?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! Track unlimited applications with custom statuses, notes, deadlines, and priority levels to
+                        stay organized throughout your job search.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="faq-item" data-category="pricing">
+                <div class="faq-question">
+                    <h3>Is JobPath free?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! JobPath offers a free plan with core features.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account -->
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>Is my data secure?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes! We use industry-standard encryption and security measures to protect your personal
+                        information and job search data at all times.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item" data-category="account">
+                <div class="faq-question">
+                    <h3>Can I delete my account?</h3>
+                    <div class="faq-icon">+</div>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, you can permanently delete your account and all associated data from your account settings
+                        at any time.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('active'));
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.category;
+
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter FAQ items
+                faqItems.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-content').textContent.toLowerCase();
+
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Page load animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>
